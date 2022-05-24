@@ -1,0 +1,254 @@
+package com.example.umang;
+
+import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
+
+import java.util.regex.Pattern;
+
+public class Assignment2 extends Application {
+    @Override
+    public void start(Stage primaryStage){
+        GridPane pane1 = new GridPane();
+        pane1.setHgap(10);
+        pane1.setVgap(5);
+        pane1.setAlignment(Pos.CENTER);
+
+        Label fn = new Label("First name");
+        TextField fntf = new TextField();
+        fntf.setPromptText("Enter your First name");
+        pane1.add(fn,1,1);
+        pane1.add(fntf,2,1);
+
+        Label mn = new Label("Middle name");
+        TextField mntf = new TextField();
+        mntf.setPromptText("Enter your Middle name");
+        pane1.add(mn,1,2);
+        pane1.add(mntf,2,2);
+
+        Label ln = new Label("Last name");
+        TextField lntf = new TextField();
+        lntf.setPromptText("Enter your Last name");
+        pane1.add(ln,1,3);
+        pane1.add(lntf,2,3);
+
+        Label EA = new Label("Email Address");
+        TextField EAtf = new TextField();
+        EAtf.setPromptText("Enter your Email Address");
+        pane1.add(EA,1,4);
+        pane1.add(EAtf,2,4);
+
+        Label mon = new Label("Mobile Number");
+        TextField montf = new TextField();
+        montf.setPromptText("Enter your Mobile number");
+        pane1.add(mon,1,5);
+        pane1.add(montf,2,5);
+
+        Label dob = new Label("Date of Birth");
+        pane1.add(dob,1,6);
+
+        Label Date = new Label("Day");
+        String[] days= {"1", "2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"};
+        ComboBox CBday = new ComboBox(FXCollections.observableArrayList(days));
+        pane1.add(Date,1,7);
+        pane1.add(CBday,2,7);
+
+        Label month = new Label("Month");
+        String[] months = {"Jan","Feb","Mar","Apr","May","jun","jul","Aug","Sep","Oct","Nov","Dec"};
+        ComboBox CBmonth = new ComboBox(FXCollections.observableArrayList(months));
+        pane1.add(month,1,8);
+        pane1.add(CBmonth,2,8);
+
+        Label year = new Label("Year");
+        String[] years = {"1995","1996","1997","1998","1999","2000","2001","2002","2003","2004","2005"};
+        ComboBox CByear = new ComboBox(FXCollections.observableArrayList(years));
+        pane1.add(year,1,9);
+        pane1.add(CByear,2,9);
+
+        Label Gender = new Label("Gender");
+        ToggleGroup TG1 = new ToggleGroup();
+
+        RadioButton MG = new RadioButton("Male");
+        MG.setToggleGroup(TG1);
+        pane1.add(Gender ,1,10);
+        pane1.add(MG,2,10);
+
+        RadioButton FG = new RadioButton("Female");
+        FG.setToggleGroup(TG1);
+        pane1.add(FG,2,11);
+
+        Label Languages = new Label("Languages");
+        pane1.add(Languages,1,12);
+        CheckBox Hindi = new CheckBox("Hindi");
+        pane1.add(Hindi ,2,12);
+        CheckBox English = new CheckBox("English");
+        pane1.add(English,2,13);
+        CheckBox Gujarati = new CheckBox("Gujrati");
+        pane1.add(Gujarati,2,14);
+
+        Button Cancel = new Button("Cancel");
+        pane1.add(Cancel,1,16);
+
+        Button submit= new Button("Submit");
+        pane1.add(submit,2,16);
+
+        submit.setOnAction(e->{
+            Alert alert=new Alert(Alert.AlertType.NONE);
+            String fml = "[A-Za-z\\s]+";
+            Pattern p = Pattern.compile(fml);
+            boolean a = p.matcher(fntf.getText()).matches();
+
+            if (!a){
+                alert.setAlertType(Alert.AlertType.WARNING);
+                alert.setHeaderText(null);
+                alert.setContentText("First name must be character and not be null ");
+                alert.showAndWait();
+                alert.setTitle("Invalid name");
+            }
+
+            boolean b = p.matcher(mntf.getText()).matches();
+            if(!b){
+                alert.setAlertType(Alert.AlertType.WARNING);
+                alert.setHeaderText(null);
+                alert.setContentText("middle name must be character and not be null ");
+                alert.showAndWait();
+                alert.setTitle("Invalid name");
+            }
+
+            boolean c = p.matcher(lntf.getText()).matches();
+            if (!c){
+                alert.setAlertType(Alert.AlertType.WARNING);
+                alert.setHeaderText(null);
+                alert.setContentText("last name must be character and not be null ");
+                alert.showAndWait();
+                alert.setTitle("Invalid name");
+
+            }
+
+            String emailregex = "^[a-zA-Z0-9_+&*-]+(?:\\." + "[a-zA-Z0-9_+&*-]+)*@" + "(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+            Pattern p1 = Pattern.compile(emailregex);
+            boolean d = p1.matcher(EAtf.getText()).matches();
+
+            if (!d){
+                alert.setAlertType(Alert.AlertType.WARNING);
+                alert.setHeaderText(null);
+                alert.setContentText("Email address must be character and not be null ");
+                alert.showAndWait();
+                alert.setTitle("Invalid name");
+            }
+
+            String mobregex =  "[6-9][0-9]{9}";
+            Pattern p2 = Pattern.compile(mobregex);
+            boolean h = p2.matcher(montf.getText()).matches();
+
+            if (!h){
+                alert.setAlertType(Alert.AlertType.WARNING);
+                alert.setHeaderText(null);
+                alert.setContentText(" Enter valid mobile number");
+                alert.showAndWait();
+                alert.setTitle("Invalid mobile number");
+            }
+
+
+
+
+
+            boolean E = CBday.getSelectionModel().isEmpty();
+            if (E){
+                alert.setAlertType(Alert.AlertType.WARNING);
+                alert.setHeaderText(null);
+                alert.setContentText("Select date");
+                alert.showAndWait();
+                alert.setTitle("Invalid dateofbirth");
+            }
+
+            boolean f = CBmonth.getSelectionModel().isEmpty();
+            if (f){
+                alert.setAlertType(Alert.AlertType.WARNING);
+                alert.setHeaderText(null);
+                alert.setContentText("Select Month");
+                alert.showAndWait();
+                alert.setTitle("Invalid dateofbirth");
+            }
+
+            boolean g = CByear.getSelectionModel().isEmpty();
+            if (g){
+                alert.setAlertType(Alert.AlertType.WARNING);
+                alert.setHeaderText(null);
+                alert.setContentText("Select year ");
+                alert.showAndWait();
+                alert.setTitle("Invalid dateofbirth");
+            }
+
+            boolean i = MG.isSelected() || FG.isSelected();
+
+            if (!i){
+                alert.setAlertType(Alert.AlertType.WARNING);
+                alert.setHeaderText(null);
+                alert.setContentText("Select Gender ");
+                alert.showAndWait();
+                alert.setTitle("Invalid Gender");
+            }
+
+            boolean j = Hindi.isSelected() | English.isSelected() | Gujarati.isSelected();
+
+            if (!j){
+                alert.setAlertType(Alert.AlertType.WARNING);
+                alert.setHeaderText(null);
+                alert.setContentText("Select Checkbox");
+                alert.showAndWait();
+                alert.setTitle("Invalid Checkbox");
+
+            }
+
+            if (a && b && c && d && !E && !f && !g  && h && i && j){
+                GridPane pane2 = new GridPane();
+                Label LB1 = new Label("");
+                String st2 = "Welcome "+fntf.getText()+ " " +lntf.getText()+ " to our page ";
+                LB1.setText(st2);
+                pane2.add(LB1,1,1);
+                pane2.setAlignment(Pos.CENTER);
+                pane2.setStyle("-fx-font:50px CENTER;-fx-background-color:silver");
+
+                Scene scene2 = new Scene(pane2,1000,550);
+                primaryStage.setScene(scene2);
+            }
+
+        });
+
+        Cancel.setOnAction(w->{
+            fntf.clear();
+            montf.clear();
+            mntf.clear();
+            lntf.clear();
+            EAtf.clear();
+            CBday.getSelectionModel().clearSelection();
+            CBmonth.getSelectionModel().clearSelection();
+            CByear.getSelectionModel().clearSelection();
+            MG.setSelected(false);
+            FG.setSelected(false);
+            Hindi.setSelected(false);
+            English.setSelected(false);
+            Gujarati.setSelected(false);
+        });
+
+
+
+
+        Scene scene1= new Scene(pane1,500,550);
+        primaryStage.setScene(scene1);
+        primaryStage.setTitle("Regeistration Form");
+        pane1.setStyle("-fx-background-color:silver;");
+        primaryStage.show();
+
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
